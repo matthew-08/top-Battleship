@@ -73,7 +73,8 @@ describe('gameboards receive and record attacks', () => {
     expect(newShip.size).toEqual(4);
   });
 });
-it('displays an array of ships on the gameboard', () => {
+
+describe('tests for multiple ships on the board', () => {
   const testGameboard = gameboard();
   const carrier = ShipFactory('carrier', 5);
   const battleship = ShipFactory('battleship', 4);
@@ -81,5 +82,15 @@ it('displays an array of ships on the gameboard', () => {
   testGameboard.placeShip(carrier, 20);
   testGameboard.placeShip(battleship, 30);
   testGameboard.placeShip(cruiser, 10);
-  expect(testGameboard.allShips.length).toEqual(3);
+  it('displays an array of ships on the gameboard', () => {
+    expect(testGameboard.allShips.length).toEqual(3);
+  });
+  it('shows that all ships are not sunk', () => {
+    expect(testGameboard.allSunk()).toBe(false);
+  });
+  it('shows that all ships are sunk', () => {
+    carrier.testProperty = carrier.size = 0;
+    battleship.testProperty = battleship.size = 0;
+    cruiser.testProperty = cruiser.size = 0;
+  });
 });

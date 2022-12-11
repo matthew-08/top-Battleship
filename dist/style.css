@@ -1,0 +1,145 @@
+* {
+    margin: 0;
+    top: 0;
+    box-sizing: border-box;
+    --main-font: 'Saira', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(117, 117, 189);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+header h1 {
+    font-family: 'Saira', sans-serif;
+    font-size: clamp(1rem, 6rem, 5rem)
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    width: 80%;
+    height: calc(100% - 130px);
+    display: flex;
+    justify-content: center;
+    border: 2px solid black;
+}
+
+.gameboards-container-left {
+    display: flex;
+    width: 50%;
+    padding: 0.25rem;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.gameboard-left {
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    width: 100%;
+    height: 80%;
+    border: 1px solid black;
+
+
+}
+
+.board-piece {
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    background-color: rgb(117, 117, 189);
+    ;
+}
+
+.board-piece.carrier {
+    background-color: aquamarine;
+}
+
+.fleet-header {
+    margin-bottom: 0.2rem;
+    font-family: var(--main-font);
+}
+
+.gameboard-options {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    text-align: center;
+}
+
+.gameboard-options h1 {
+    font-family: var(--main-font);
+    font-size: 4rem;
+    margin-bottom: 20%;
+}
+
+.gameboard-options button {
+    font-family: var(--main-font);
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    width: 50%;
+    height: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    border: none;
+    background-color: rgb(226, 224, 220);
+}
+
+.has-ship {
+    background-color: aliceblue;
+}
+
+.out-of-bounds {
+    cursor: not-allowed;
+}
+
+.enemy-header {
+    font-family: var(--main-font);
+    font-size: 2em;
+    margin-bottom: 0.2rem;
+}
+
+.board-piece-enemy {
+
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    background-color: rgb(117, 117, 189);
+}
+
+.gameboards-container-right {
+    display: flex;
+    width: 50%;
+    padding: 0.25rem;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    display: none;
+}
+
+.gameboard-right {
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    width: 100%;
+    height: 80%;
+    border: 1px solid black;
+}

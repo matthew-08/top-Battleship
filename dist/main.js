@@ -1,0 +1,116 @@
+/*
+ * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/controller.js":
+/*!***************************!*\
+  !*** ./src/controller.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"getPlayerShipPlacement\": () => (/* binding */ getPlayerShipPlacement)\n/* harmony export */ });\n/* harmony import */ var _players__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./players */ \"./src/players.js\");\n/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ \"./src/index.js\");\n/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dom */ \"./src/dom.js\");\n\n\n\n\nfunction getPlayerShipPlacement(id, n, horizontal) {\n  switch (n) {\n    case 5: {\n      _players__WEBPACK_IMPORTED_MODULE_0__.placeShipFunctions.placeCarrier(id, horizontal);\n      break;\n    }\n    case 4: {\n      _players__WEBPACK_IMPORTED_MODULE_0__.placeShipFunctions.placeBattleship(id, horizontal);\n      break;\n    }\n    case 3: {\n      _players__WEBPACK_IMPORTED_MODULE_0__.placeShipFunctions.placeCruiser(id, horizontal);\n      break;\n    }\n    case 2: {\n      _players__WEBPACK_IMPORTED_MODULE_0__.placeShipFunctions.placeSubmarine(id, horizontal);\n      break;\n    }\n    case 1: {\n      _players__WEBPACK_IMPORTED_MODULE_0__.placeShipFunctions.placeDestroyer(id, horizontal);\n      break;\n    }\n  }\n  checkForPlacementEnding(n);\n}\n\nfunction checkForPlacementEnding(n) {\n  if (n === 1) {\n    (0,_dom__WEBPACK_IMPORTED_MODULE_2__.hideOptions)();\n    (0,_dom__WEBPACK_IMPORTED_MODULE_2__.generateEnemyBoard)();\n  }\n}\n\n\n//# sourceURL=webpack://battleship/./src/controller.js?");
+
+/***/ }),
+
+/***/ "./src/dom.js":
+/*!********************!*\
+  !*** ./src/dom.js ***!
+  \********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"addBoardHover\": () => (/* binding */ addBoardHover),\n/* harmony export */   \"addDivClickEventListener\": () => (/* binding */ addDivClickEventListener),\n/* harmony export */   \"displayGameboard\": () => (/* binding */ displayGameboard),\n/* harmony export */   \"generateEnemyBoard\": () => (/* binding */ generateEnemyBoard),\n/* harmony export */   \"generateInitialGameboard\": () => (/* binding */ generateInitialGameboard),\n/* harmony export */   \"handleOutOfBounds\": () => (/* binding */ handleOutOfBounds),\n/* harmony export */   \"hideOptions\": () => (/* binding */ hideOptions),\n/* harmony export */   \"rotateButton\": () => (/* binding */ rotateButton)\n/* harmony export */ });\n/* harmony import */ var _controller__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./controller */ \"./src/controller.js\");\n/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ \"./src/index.js\");\n/* eslint-disable radix */\n\n\n\nfunction generateInitialGameboard() {\n  const gameboard = document.querySelector('.gameboard-left');\n  console.log(gameboard);\n  for (let i = 0; i < 100; i++) {\n    const boardpiece = document.createElement('div');\n    boardpiece.classList.add('board-piece');\n    boardpiece.dataset.id = i;\n    gameboard.appendChild(boardpiece);\n  }\n  addDivClickEventListener();\n}\n\nfunction handleOutOfBounds(n, vertical) {\n  const divs = document.querySelectorAll('.board-piece');\n  divs.forEach((div) => {\n    if (div.classList.contains('out-of-bounds')) {\n      div.classList.remove('out-of-bounds');\n    }\n    if (div.classList.contains('has-ship')) {\n      div.classList.add('out-of-bounds');\n    }\n    const string = div.dataset.id;\n    if (vertical) {\n      // eslint-disable-next-line default-case\n      switch (n) {\n        case 5: if (parseInt(string) >= 60) {\n          div.classList.add('out-of-bounds');\n        }\n          break;\n        case 4: if ((parseInt(string)) >= 70) {\n          div.classList.add('out-of-bounds');\n        }\n          break;\n        case 3: if ((parseInt(string)) >= 80) {\n          div.classList.add('out-of-bounds');\n        }\n          break;\n\n        case 2: if ((parseInt(string)) >= 90) {\n          div.classList.add('out-of-bounds');\n        }\n          break;\n      }\n    } else {\n    // eslint-disable-next-line default-case\n      switch (n) {\n        case 5: if (string.charAt(1) !== '' && parseInt(string.charAt(1)) >= 6) {\n          div.classList.add('out-of-bounds');\n        } else if (parseInt(string.charAt(0)) >= 6 && string.length === 1) {\n          div.classList.add('out-of-bounds');\n        }\n          break;\n        case 4: if (string.charAt(1) !== '' && parseInt(string.charAt(1)) >= 7) {\n          div.classList.add('out-of-bounds');\n        } else if (parseInt(string.charAt(0)) >= 7 && string.length === 1) {\n          div.classList.add('out-of-bounds');\n        }\n          break;\n        case 3:\n          if (string.charAt(1) !== '' && parseInt(string.charAt(1)) >= 8) {\n            div.classList.add('out-of-bounds');\n          } else if (parseInt(string.charAt(0)) >= 8 && string.length === 1) {\n            div.classList.add('out-of-bounds');\n          }\n          break;\n\n        case 2: if (string.charAt(1) !== '' && parseInt(string.charAt(1)) >= 9) {\n          div.classList.add('out-of-bounds');\n        } else if (parseInt(string.charAt(0)) >= 9 && string.length === 1) {\n          div.classList.add('out-of-bounds');\n        }\n      }\n    }\n  });\n}\n\nconst objectOfCurrentShipSize = {\n  current: 5,\n};\n\nfunction determineN(ship) {\n  if (ship === 'carrier') {\n    return 5;\n  }\n  if (ship === 'battleship') {\n    return 4;\n  }\n  if (ship === 'cruiser') {\n    return 3;\n  }\n  if (ship === 'submarine') {\n    return 3;\n  }\n  if (ship === 'destroyer') {\n    return 2;\n  }\n}\n\nfunction determineOutOfBounds(div) {\n  if (div.classList.contains('out-of-bounds')) {\n    return true;\n  } return false;\n}\n\nconst rotateButton = {\n  rotateButtonStatus: false,\n  getRotatebutton() {\n    const rotateButton = document.getElementById('rotate');\n    return rotateButton;\n  },\n  eventListener() {\n    const button = this.getRotatebutton();\n    button.addEventListener('click', () => {\n      this.toggleClassList();\n    });\n  },\n  toggleClassList() {\n    const button = this.getRotatebutton();\n    button.classList.toggle('horizontal');\n    if (this.rotateButtonStatus) {\n      this.rotateButtonStatus = false;\n    } else this.rotateButtonStatus = true;\n    handleOutOfBounds(objectOfCurrentShipSize.current, this.rotateButtonStatus);\n  },\n  getStatus() {\n    return this.rotateButtonStatus;\n  },\n};\n\n/* function passToHandle(size, rotateButtonStatus) {\n\n} */\n\nfunction addBoardHover(shipType) {\n  const n = determineN(shipType);\n  document.addEventListener('mouseover', (e) => {\n    const status = rotateButton.getStatus();\n    const removeExistingClass = document.querySelectorAll('.carrier');\n    removeExistingClass.forEach((a) => {\n      a.classList.toggle('carrier');\n    });\n    const isDiv = e.target.matches('.board-piece');\n    if (isDiv) {\n      const currentDiv = e.target;\n      currentDiv.classList.toggle('carrier');\n      const currentDivDataset = parseInt(currentDiv.dataset.id, 10);\n      const isOutOfBounds = determineOutOfBounds(currentDiv);\n      if (isOutOfBounds) {\n        return;\n      }\n      if (!status) {\n        for (let i = 1; i < n; i++) {\n          const blockToAdd = currentDivDataset + i;\n          const div = document.querySelector(`[data-id=\"${blockToAdd}\"]`);\n          if (div.classList.contains('has-ship')) {\n            return;\n          }\n          div.classList.add('carrier');\n        }\n      } else {\n        let verticalIndexes = currentDivDataset;\n        for (let i = 1; i < n; i++) {\n          verticalIndexes += 10;\n          /* handleOutOfBounds(); */\n          const div = document.querySelector(`[data-id=\"${verticalIndexes}\"]`);\n          if (div.classList.contains('has-ship')) {\n            return;\n          }\n          if (!div) {\n            return;\n          }\n          div.classList.add('carrier');\n        }\n      }\n    }\n  });\n}\n\nfunction checkForValidMove(id, counter) {\n  const horizontal = document.getElementById('rotate').classList.contains('horizontal');\n  let hasShip = false;\n  let coordinatesHolder = parseInt(id, 10);\n  let verticalCounter = counter;\n  if (!horizontal) {\n    for (let i = id; i < counter; i++) {\n      if (_index__WEBPACK_IMPORTED_MODULE_1__.playerOne.pGameboard.playerBoard[i].hasShip) {\n        hasShip = true;\n      }\n    }\n  } else {\n    while (verticalCounter > 0) {\n      if (_index__WEBPACK_IMPORTED_MODULE_1__.playerOne.pGameboard.playerBoard[coordinatesHolder].hasShip) {\n        hasShip = true;\n        return;\n      }\n      verticalCounter -= 1;\n      coordinatesHolder += 10;\n    }\n  }\n  return hasShip;\n}\n\nfunction updateShipLength(counter) {\n  let shipType;\n  if (counter === 5) {\n    shipType = 'carrier';\n  } else if (counter === 4) {\n    shipType = 'battleship';\n  } else if (counter === 3) {\n    shipType = 'cruiser';\n  } else if (counter === 2) {\n    shipType = 'submarine';\n  } else if (counter === 1) {\n    shipType = 'destroyer';\n  }\n  addBoardHover(shipType);\n  const outOfBoundsPass = determineN(shipType);\n  handleOutOfBounds(outOfBoundsPass, rotateButton.rotateButtonStatus);\n}\nfunction addDivClickEventListener() {\n  let counter = 5;\n  const arrayOfDivs = document.getElementsByClassName('board-piece');\n  Array.from(arrayOfDivs).forEach((div) => {\n    div.addEventListener('click', (e) => {\n      if (checkForValidMove(e.target.dataset.id, counter)) {\n        return;\n      }\n      handleUserShipSelection(parseInt(e.target.dataset.id, 10), counter, rotateButton.getStatus());\n      counter -= 1;\n      updateShipLength(counter);\n      objectOfCurrentShipSize.current -= 1;\n    });\n  });\n}\n\nfunction handleUserShipSelection(id, counter, horizontal) {\n  /* let horizontal = true;\n  const button = document.getElementById('rotate');\n  if (button.classList.contains('horizontal')) {\n    horizontal = false;\n  } */\n  (0,_controller__WEBPACK_IMPORTED_MODULE_0__.getPlayerShipPlacement)(id, counter, horizontal);\n}\n\nfunction displayGameboard() {\n  const ships = _index__WEBPACK_IMPORTED_MODULE_1__.playerOne.pGameboard.playerBoard.filter((e) => e.hasShip);\n  for (let i = 0; i < ships.length; i++) {\n    const ok = document.querySelector(`[data-id=\"${ships[i].number}\"]`);\n    ok.classList.add('has-ship');\n  }\n}\n\nfunction hideOptions() {\n  const options = document.querySelector('.gameboard-options');\n  options.style.display = 'none';\n}\n\nfunction generateEnemyBoard() {\n  const container = document.querySelector('.gameboards-container-right');\n  container.style.display = 'flex ';\n\n  const gameboard = document.querySelector('.gameboard-right');\n  for (let i = 0; i < 100; i++) {\n    const boardpiece = document.createElement('div');\n    boardpiece.classList.add('board-piece-enemy');\n    boardpiece.dataset.idE = i;\n    gameboard.appendChild(boardpiece);\n  }\n  const ships = _index__WEBPACK_IMPORTED_MODULE_1__.playerTwoComputer.pGameboard.playerBoard.filter((e) => e.hasShip);\n  for (let i = 0; i < ships.length; i++) {\n    const ok = document.querySelector(`[data-id-e=\"${ships[i].number}\"]`);\n    ok.classList.add('has-ship');\n  }\n}\n\n\n//# sourceURL=webpack://battleship/./src/dom.js?");
+
+/***/ }),
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"ShipFactory\": () => (/* binding */ ShipFactory),\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__),\n/* harmony export */   \"gameboard\": () => (/* binding */ gameboard),\n/* harmony export */   \"playerOne\": () => (/* binding */ playerOne),\n/* harmony export */   \"playerTwoComputer\": () => (/* binding */ playerTwoComputer)\n/* harmony export */ });\n/* harmony import */ var _controller__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./controller */ \"./src/controller.js\");\n/* harmony import */ var _players__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./players */ \"./src/players.js\");\n/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dom */ \"./src/dom.js\");\n\n\n\n\n(0,_dom__WEBPACK_IMPORTED_MODULE_2__.generateInitialGameboard)();\n\nclass GameboardPiece {\n  constructor(number) {\n    this.number = number;\n    this.hit = false;\n    this.hasShip = false;\n    this.connectedShip = null;\n  }\n}\n\nconst ShipFactory = (shipName, length, direction) => ({\n  shipName,\n  size: length,\n  hit() {\n    this.size -= 1;\n  },\n  isSunk() {\n    return (this.size === 0);\n  },\n  direction,\n});\n\nfunction generateGameboard() {\n  // Generates 100 numbers each representing a block on the gameboard.\n  const array = [];\n  for (let i = 0; i <= 100; i++) {\n    const piece = new GameboardPiece(i);\n    array.push(piece);\n  }\n  return array;\n}\n\nconst gameboard = () => ({\n  playerBoard: generateGameboard(),\n  allShips: [],\n  // Method that takes a ship class and coordinates in which ship should be placed.\n  placeShip(ship, coordinates, vertical) {\n    checkMoveLegality(this.playerBoard, coordinates);\n    const shipLength = ship.size; // Determines how long the loops should run\n    const shipCoordinates = [];\n    const holdName = ship.shipName;\n    if (vertical) {\n      let counter = shipLength;\n      let coordinatesHolder = coordinates;\n      while (counter > 0) {\n        checkMoveLegality(this.playerBoard, coordinatesHolder);\n        this.playerBoard[coordinatesHolder].hasShip = true;\n        this.playerBoard[coordinatesHolder].connectedShip = ship;\n        shipCoordinates.push(this.playerBoard[coordinatesHolder]);\n        coordinatesHolder += 10;\n        counter -= 1;\n      }\n    } else {\n      for (let i = coordinates; i < (coordinates + shipLength); i++) { // gather coordinates\n        shipCoordinates.push(this.playerBoard[i]);\n        this.playerBoard[i].hasShip = true;\n        this.playerBoard[i].connectedShip = ship;\n      }\n    }\n    const newShip = { ship, shipCoordinates };\n    this[holdName] = shipCoordinates;\n    this.allShips.push(newShip);\n    (0,_dom__WEBPACK_IMPORTED_MODULE_2__.displayGameboard)();\n  },\n  gameboardHit(coordinate) {\n    const boardSpace = this.playerBoard[coordinate];\n    boardSpace.hit = true;\n    if (boardSpace.connectedShip) {\n      boardSpace.connectedShip.hit();\n    }\n  },\n  allSunk() {\n    return this.allShips.every((ship) => {\n      ship.ship.isSunk();\n    });\n  },\n  generateVisual() {\n    const array = [];\n    for (let i = 0; i < this.playerBoard.length; i++) {\n      if (this.playerBoard[i].hasShip) {\n        array.push(1);\n      } else array.push(0);\n    }\n  },\n\n});\n\nfunction checkMoveLegality(playerBoard, coordinates) {\n  const passedCoordinate = coordinates;\n  const initalCoordinate = playerBoard[passedCoordinate];\n  if (initalCoordinate.hasShip) {\n    throw 'error';\n  }\n}\nconst playerOne = new _players__WEBPACK_IMPORTED_MODULE_1__.Player('matthew');\nconst playerTwoComputer = new _players__WEBPACK_IMPORTED_MODULE_1__.Player('Computer');\n(0,_controller__WEBPACK_IMPORTED_MODULE_0__.getPlayerShipPlacement)();\n(0,_players__WEBPACK_IMPORTED_MODULE_1__.generateComputerSetup)();\nplayerOne.pGameboard.generateVisual();\nplayerTwoComputer.pGameboard.generateVisual();\n_dom__WEBPACK_IMPORTED_MODULE_2__.rotateButton.eventListener();\n(0,_dom__WEBPACK_IMPORTED_MODULE_2__.handleOutOfBounds)(5, _dom__WEBPACK_IMPORTED_MODULE_2__.rotateButton.getStatus());\n(0,_dom__WEBPACK_IMPORTED_MODULE_2__.addBoardHover)('carrier');\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ShipFactory);\n\n\n//# sourceURL=webpack://battleship/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/players.js":
+/*!************************!*\
+  !*** ./src/players.js ***!
+  \************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"Player\": () => (/* binding */ Player),\n/* harmony export */   \"generateComputerSetup\": () => (/* binding */ generateComputerSetup),\n/* harmony export */   \"placeShipFunctions\": () => (/* binding */ placeShipFunctions)\n/* harmony export */ });\n/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index */ \"./src/index.js\");\n// eslint-disable-next-line max-classes-per-file\n\n\nclass Player {\n  constructor(name) {\n    this.name = name;\n    this.pGameboard = (0,_index__WEBPACK_IMPORTED_MODULE_0__.gameboard)();\n    this.playerTurn = false;\n  }\n\n  shoot() {\n    if (this.playerTurn) {\n      const choice = prompt('pick enemy slot to shoot');\n    }\n  }\n}\n\nfunction setupShips(ship, coordinate, horizontal, computer) {\n  if (computer) {\n    _index__WEBPACK_IMPORTED_MODULE_0__.playerTwoComputer.pGameboard.placeShip(ship, coordinate, horizontal);\n  } else _index__WEBPACK_IMPORTED_MODULE_0__.playerOne.pGameboard.placeShip(ship, coordinate, horizontal);\n  console.log(_index__WEBPACK_IMPORTED_MODULE_0__.playerOne);\n}\n\nconst placeShipFunctions = {\n  placeCarrier(coordinate, horizontal, computer) {\n    const carrier = (0,_index__WEBPACK_IMPORTED_MODULE_0__.ShipFactory)('carrier', 5);\n    setupShips(carrier, coordinate, horizontal, computer);\n  },\n  placeBattleship(coordinate, horizontal, computer) {\n    const battleship = (0,_index__WEBPACK_IMPORTED_MODULE_0__.ShipFactory)('battleship', 4);\n    setupShips(battleship, coordinate, horizontal, computer);\n  },\n  placeCruiser(coordinate, horizontal, computer) {\n    const cruiser = (0,_index__WEBPACK_IMPORTED_MODULE_0__.ShipFactory)('crusier', 3);\n    setupShips(cruiser, coordinate, horizontal, computer);\n  },\n  placeSubmarine(coordinate, horizontal, computer) {\n    const submarine = (0,_index__WEBPACK_IMPORTED_MODULE_0__.ShipFactory)('submarine', 3);\n    setupShips(submarine, coordinate, horizontal, computer);\n  },\n  placeDestroyer(coordinate, horizontal, computer) {\n    const destroyer = (0,_index__WEBPACK_IMPORTED_MODULE_0__.ShipFactory)('submarine', 2);\n    setupShips(destroyer, coordinate, horizontal, computer);\n  },\n};\n\nfunction randomVerticalHorizontal() {\n  return Math.random() < 0.5;\n}\n\nfunction generateComputerSetup() {\n  const computer = true;\n  placeShipFunctions.placeCarrier(40, false, computer);\n  placeShipFunctions.placeDestroyer(30, false, computer);\n  placeShipFunctions.placeSubmarine(20, false, computer);\n  placeShipFunctions.placeDestroyer(10, false, computer);\n  placeShipFunctions.placeBattleship(90, false, computer);\n  // initialize computer\n  // script for randomizing vertical vs horizontal\n  // script for randomizing number\n  /* function randomCordinate(max, min) {\n    return Math.floor(Math.random() * (max - min) + min);\n  }\n  function carrier() {\n    let potentialPosition\n    vertical = randomVerticalHorizontal()\n    if (vertical) {\n       potentialPosition = randomCordinate(100, 41);\n    } else potentialPosition = random\n    if (playerTwoComputer.pGameboard.playerBoard[potentialPosition].hasShip)\n  } */\n}\n\n\n//# sourceURL=webpack://battleship/./src/players.js?");
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
+/******/ 	
+/******/ })()
+;
