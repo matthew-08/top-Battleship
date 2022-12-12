@@ -3,6 +3,7 @@
     top: 0;
     box-sizing: border-box;
     --main-font: 'Saira', sans-serif;
+    --box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
 body {
@@ -50,6 +51,7 @@ main {
 }
 
 .gameboard-left {
+    box-shadow: var(--box-shadow);
     padding: 0;
     margin: 0;
     display: grid;
@@ -128,6 +130,13 @@ main {
     background-color: rgb(117, 117, 189);
 }
 
+.board-piece-enemy:hover {
+    border: 2px solid black;
+    background-color: rgb(108, 108, 154);
+
+}
+
+
 .gameboards-container-right {
     display: flex;
     width: 50%;
@@ -139,6 +148,7 @@ main {
 }
 
 .gameboard-right {
+    box-shadow: var(--box-shadow);
     padding: 0;
     margin: 0;
     display: grid;
@@ -158,6 +168,54 @@ main {
 }
 
 .player-hover:hover {
-    cursor: auto;
+    cursor: pointer;
     background-color: rgb(182, 203, 184);
+}
+
+/* main.blur {
+    cursor: none;
+    pointer-events: none;
+    opacity: 0.5;
+} */
+
+/* .ending-popup {
+    display: flex;
+    width: 50%;
+    height: 50%;
+    background-color: rgb(117, 117, 189);
+} */
+
+.ending {
+    width: 50%;
+    padding: 0.25rem;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    display: none;
+    text-align: center
+}
+
+.ending h1 {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.ending h1 span {
+    font-size: 3rem;
+}
+
+.ending button {
+    font-family: var(--main-font);
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    width: 50%;
+    height: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    border: none;
+    background-color: rgb(226, 224, 220);
 }

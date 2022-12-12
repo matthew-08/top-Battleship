@@ -19,6 +19,9 @@ export const ShipFactory = (shipName, length, direction) => ({
   shipName,
   size: length,
   hit() {
+    if (this.size === 0) {
+      return;
+    }
     this.size -= 1;
   },
   isSunk() {

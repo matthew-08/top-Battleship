@@ -262,7 +262,7 @@ export function updatePlayerboard({
   const divs = document.querySelectorAll('.board-piece');
   const hitDiv = Array.from(divs).find((div) => parseInt(div.dataset.id) === number);
   if (hasShip) {
-    console.log(`You hit the enemy's ${connectedShip.shipName}`);
+    console.log(`The enemy hit your ${connectedShip.shipName}`);
     hitDiv.classList.add('enemy-hit-ship');
   } else {
     hitDiv.classList.add('enemy-hit');
@@ -326,4 +326,15 @@ export function removePlayerboardEventListeners() {
       div.classList.toggle('out-of-bounds');
     }
   });
+}
+
+export function generateEndingDOM(winner) {
+  const container = document.querySelector('.gameboards-container-right');
+  container.style.display = 'none';
+  const endingContainer = document.querySelector('.ending');
+  endingContainer.style.display = 'flex';
+  const winnerName = document.getElementById('winner');
+  if (winner === 'Computer') {
+    winnerName.textContent = 'Computer won!';
+  } else winnerName.textContent = 'You won!';
 }

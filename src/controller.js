@@ -4,6 +4,7 @@ import {
   hideOptions, generateEnemyBoard, playerTurnDom, updateEnemyboardDom,
   removePlayerboardEventListeners,
   updatePlayerboard,
+  generateEndingDOM,
 } from './dom';
 
 function gameLoop() {
@@ -60,10 +61,9 @@ export const boardController = {
   },
   checkForAllSunk() {
     if (playerTwoComputer.pGameboard.allSunk()) {
-      console.log('You won!');
+      generateEndingDOM();
     }
-    if (playerOne.pGameboard.allSunk()) {
-      console.log('Enemy won!');
-    }
+    /* if (playerOne.pGameboard.allSunk()) {
+    } */
   },
 };
