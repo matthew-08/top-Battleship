@@ -75,11 +75,12 @@ export const gameboard = () => ({
     if (boardSpace.connectedShip) {
       boardSpace.connectedShip.hit();
     }
+    return boardSpace;
   },
   allSunk() {
-    return this.allShips.every((ship) => {
-      ship.ship.isSunk();
-    });
+    console.log(this.allShips);
+    const { allShips } = this;
+    return allShips.every((ship) => ship.ship.isSunk());
   },
   generateVisual() {
     const array = [];

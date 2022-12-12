@@ -1,6 +1,7 @@
 /* eslint-disable radix */
 import { getPlayerShipPlacement } from './controller';
 import { playerOne, playerTwoComputer } from './index';
+import { boardController } from './controller';
 
 export function generateInitialGameboard() {
   const gameboard = document.querySelector('.gameboard-left');
@@ -137,7 +138,8 @@ export const rotateButton = {
 
 export function addBoardHover(shipType) {
   const n = determineN(shipType);
-  document.addEventListener('mouseover', (e) => {
+  document.addEventListener('mouseover', boardHover);
+  function boardHover(e) {
     const status = rotateButton.getStatus();
     const removeExistingClass = document.querySelectorAll('.carrier');
     removeExistingClass.forEach((a) => {
@@ -177,7 +179,8 @@ export function addBoardHover(shipType) {
         }
       }
     }
-  });
+  }
+  return { boardHover };
 }
 
 function checkForValidMove(id, counter) {
@@ -253,7 +256,19 @@ export function displayGameboard() {
     ok.classList.add('has-ship');
   }
 }
-
+export function updatePlayerboard({
+  number, hit, hasShip, connectedShip,
+}) {
+  const divs = document.querySelectorAll('.board-piece');
+  const hitDiv = Array.from(divs).find((div) => parseInt(div.dataset.id) === number);
+  if (hasShip) {
+    console.log(`You hit the enemy's ${connectedShip.shipName}`);
+    hitDiv.classList.add('enemy-hit-ship');
+  } else {
+    hitDiv.classList.add('enemy-hit');
+    console.log('you missed');
+  }
+}
 export function hideOptions() {
   const options = document.querySelector('.gameboard-options');
   options.style.display = 'none';
@@ -279,7 +294,36 @@ export function generateEnemyBoard() {
 
 export function playerTurnDom() {
   const enemyPieces = document.getElementsByClassName('board-piece-enemy');
-  enemyPieces.forEach((div) => {
-    div.addEventListener();
+  Array.from(enemyPieces).forEach((div) => {
+    div.addEventListener('click', (e) => {
+      boardController.hitEnemyBoard(parseInt(e.target.dataset.idE));
+    });
+  });
+}
+
+export function updateEnemyboardDom({
+  number, hit, hasShip, connectedShip,
+}) {
+  const enemyDivs = document.querySelectorAll('.board-piece-enemy');
+  const hitDiv = Array.from(enemyDivs).find((div) => parseInt(div.dataset.idE) === number);
+  if (hasShip) {
+    console.log(`You hit the enemy's ${connectedShip.shipName}`);
+    hitDiv.classList.add('enemy-hit-ship');
+  } else {
+    hitDiv.classList.add('enemy-hit');
+    console.log('you missed');
+  }
+}
+
+export function removePlayerboardEventListeners() {
+  const playerDivs = document.querySelectorAll('.board-piece');
+  /* Array.from(playerDivs).forEach((div) => {
+    div.classList.add('player-hover');
+  }); */
+  const outOfBounds = document.querySelectorAll('.out-of-bounds');
+  Array.from(outOfBounds).forEach((div) => {
+    if (div.classList.contains('out-of-bounds')) {
+      div.classList.toggle('out-of-bounds');
+    }
   });
 }
