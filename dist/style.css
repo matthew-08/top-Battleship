@@ -86,10 +86,12 @@ main {
     flex-direction: column;
     width: 50%;
     text-align: center;
+    padding: 4rem;
 }
 
 .gameboard-options h1 {
     font-family: var(--main-font);
+    border-bottom: 10px solid black;
     font-size: 4rem;
     margin-bottom: 10%;
 }

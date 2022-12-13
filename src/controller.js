@@ -50,6 +50,7 @@ export function getPlayerShipPlacement(id, n, horizontal) {
 export const boardController = {
   hitEnemyBoard(coordinate) {
     const blockHit = playerTwoComputer.pGameboard.gameboardHit(coordinate);
+    console.log(blockHit);
     updateEnemyboardDom(blockHit);
     this.enemyShoot();
     this.checkForAllSunk();
