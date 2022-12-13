@@ -238,6 +238,29 @@ function updateShipLength(counter) {
   const outOfBoundsPass = determineN(shipType);
   handleOutOfBounds(outOfBoundsPass, rotateButton.rotateButtonStatus);
 }
+
+function updateShipOptions(n) {
+  const divs = document.querySelectorAll('.ship-div');
+  const text = document.getElementById('ship-name');
+  switch (n) {
+    case 5:
+      break;
+    case 4: text.innerText = 'Battleship';
+      break;
+    case 3: text.innerText = 'Cruiser';
+      break;
+    case 2: text.innerText = 'Submarine';
+      break;
+    case 1: text.innerText = 'Destroyer';
+      break;
+    default: text.innerText = 'ok';
+  }
+  const finalDiv = divs[divs.length - 1];
+  if (n === 2) {
+    return;
+  }
+  finalDiv.remove();
+}
 export function addDivClickEventListener() {
   let counter = 5;
   const arrayOfDivs = document.getElementsByClassName('board-piece');
@@ -250,6 +273,7 @@ export function addDivClickEventListener() {
       counter -= 1;
       updateShipLength(counter);
       objectOfCurrentShipSize.current -= 1;
+      updateShipOptions(counter);
     });
   });
 }
@@ -289,8 +313,9 @@ export function hideOptions() {
 }
 
 export function generateEnemyBoard() {
-  const container = document.querySelector('.gameboards-container-right');
+  const container = document.querySelector('.gameboards-container-right-hidden');
   container.style.display = 'flex ';
+  setTimeout(() => (container.classList.add('appear')), 200);
 
   const gameboard = document.querySelector('.gameboard-right');
   for (let i = 0; i < 100; i++) {
