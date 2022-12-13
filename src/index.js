@@ -1,5 +1,5 @@
 import { getPlayerShipPlacement } from './controller';
-import { Player, generateComputerSetup } from './players';
+import { Player, generateComputerSetup, generateRandomBoard } from './players';
 import {
   generateInitialGameboard, addDivClickEventListener, displayGameboard, handleOutOfBounds, addBoardHover, rotateButton, generateEnemyBoard,
 } from './dom';
@@ -100,13 +100,15 @@ function checkMoveLegality(playerBoard, coordinates) {
   const passedCoordinate = coordinates;
   const initalCoordinate = playerBoard[passedCoordinate];
   if (initalCoordinate.hasShip) {
-    throw 'error';
+    return false;
   }
+  return true;
 }
 export const playerOne = new Player('matthew');
 export const playerTwoComputer = new Player('Computer');
 getPlayerShipPlacement();
-generateComputerSetup();
+// generateComputerSetup();
+generateRandomBoard();
 playerOne.pGameboard.generateVisual();
 playerTwoComputer.pGameboard.generateVisual();
 rotateButton.eventListener();

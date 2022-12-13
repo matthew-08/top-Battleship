@@ -17,6 +17,7 @@ export function generateInitialGameboard() {
 
 export function handleOutOfBounds(n, vertical) {
   const divs = document.querySelectorAll('.board-piece');
+  let okayMove = false;
   divs.forEach((div) => {
     if (div.classList.contains('out-of-bounds')) {
       div.classList.remove('out-of-bounds');
@@ -45,6 +46,8 @@ export function handleOutOfBounds(n, vertical) {
           div.classList.add('out-of-bounds');
         }
           break;
+        default:
+          okayMove = true;
       }
     } else {
     // eslint-disable-next-line default-case
@@ -74,9 +77,12 @@ export function handleOutOfBounds(n, vertical) {
         } else if (parseInt(string.charAt(0)) >= 9 && string.length === 1) {
           div.classList.add('out-of-bounds');
         }
+          break;
+        default: okayMove = true;
       }
     }
   });
+  return okayMove;
 }
 
 const objectOfCurrentShipSize = {
@@ -183,20 +189,28 @@ export function addBoardHover(shipType) {
   return { boardHover };
 }
 
-function checkForValidMove(id, counter) {
-  const horizontal = document.getElementById('rotate').classList.contains('horizontal');
+export function checkForValidMove(id, counter, notDom, computer) {
+  let horizontal;
+  let board;
+  if (notDom) {
+    horizontal = notDom;
+  } else horizontal = document.getElementById('rotate').classList.contains('horizontal');
+  if (computer) {
+    board = playerTwoComputer.pGameboard.playerBoard;
+  } else board = playerOne.pGameboard.playerBoard;
   let hasShip = false;
   let coordinatesHolder = parseInt(id, 10);
   let verticalCounter = counter;
   if (!horizontal) {
     for (let i = id; i < counter; i++) {
-      if (playerOne.pGameboard.playerBoard[i].hasShip) {
+      if (board[i].hasShip) {
         hasShip = true;
+        return;
       }
     }
   } else {
     while (verticalCounter > 0) {
-      if (playerOne.pGameboard.playerBoard[coordinatesHolder].hasShip) {
+      if (board[coordinatesHolder].hasShip) {
         hasShip = true;
         return;
       }

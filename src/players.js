@@ -2,6 +2,7 @@
 import {
   gameboard, ShipFactory, playerOne, playerTwoComputer,
 } from './index';
+import { handleOutOfBounds, checkForValidMove } from './dom';
 
 export class Player {
   constructor(name) {
@@ -42,7 +43,7 @@ export const placeShipFunctions = {
     setupShips(submarine, coordinate, horizontal, computer);
   },
   placeDestroyer(coordinate, horizontal, computer) {
-    const destroyer = ShipFactory('submarine', 2);
+    const destroyer = ShipFactory('destroyer', 2);
     setupShips(destroyer, coordinate, horizontal, computer);
   },
 };
@@ -51,25 +52,33 @@ function randomVerticalHorizontal() {
   return Math.random() < 0.5;
 }
 
-export function generateComputerSetup() {
-  const computer = true;
-  placeShipFunctions.placeCarrier(40, false, computer);
-  placeShipFunctions.placeDestroyer(30, false, computer);
-  placeShipFunctions.placeSubmarine(20, false, computer);
-  placeShipFunctions.placeDestroyer(10, false, computer);
-  placeShipFunctions.placeBattleship(90, false, computer);
-  // initialize computer
-  // script for randomizing vertical vs horizontal
-  // script for randomizing number
-  /* function randomCordinate(max, min) {
-    return Math.floor(Math.random() * (max - min) + min);
+export function generateRandomBoard() {
+  let n = 5;
+  for (let i = 0; i <= 5; i++) {
+    generateComputerSetup(n);
+    n -= 1;
   }
-  function carrier() {
-    let potentialPosition
-    vertical = randomVerticalHorizontal()
-    if (vertical) {
-       potentialPosition = randomCordinate(100, 41);
-    } else potentialPosition = random
-    if (playerTwoComputer.pGameboard.playerBoard[potentialPosition].hasShip)
-  } */
+}
+function randomCordinate(max, min) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+export function generateComputerSetup(n) {
+  const computer = true;
+  if (n === 5) {
+    placeShipFunctions.placeCarrier(randomCordinate(30, 35), false, computer);
+  }
+  if (n === 4) {
+    placeShipFunctions.placeDestroyer(randomCordinate(7, 9), true, computer);
+  }
+  if (n === 3) {
+    placeShipFunctions.placeSubmarine(randomCordinate(70, 73), false, computer);
+  }
+  if (n === 2) {
+    placeShipFunctions.placeBattleship(randomCordinate(10, 15), false, computer);
+  }
+  if (n === 1) {
+    placeShipFunctions.placeCruiser(randomCordinate(90, 94), false, computer);
+  }
+  console.log(playerTwoComputer.pGameboard);
 }
