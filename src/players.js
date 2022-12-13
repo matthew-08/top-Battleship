@@ -11,10 +11,8 @@ export class Player {
     this.playerTurn = true;
   }
 
-  shoot() {
-    if (this.playerTurn) {
-      const choice = prompt('pick enemy slot to shoot');
-    }
+  reset() {
+    this.pGameboard = gameboard();
   }
 }
 
@@ -22,7 +20,6 @@ function setupShips(ship, coordinate, horizontal, computer) {
   if (computer) {
     playerTwoComputer.pGameboard.placeShip(ship, coordinate, horizontal);
   } else playerOne.pGameboard.placeShip(ship, coordinate, horizontal);
-  console.log(playerOne);
 }
 
 export const placeShipFunctions = {
@@ -48,17 +45,6 @@ export const placeShipFunctions = {
   },
 };
 
-function randomVerticalHorizontal() {
-  return Math.random() < 0.5;
-}
-
-export function generateRandomBoard() {
-  let n = 5;
-  for (let i = 0; i <= 5; i++) {
-    generateComputerSetup(n);
-    n -= 1;
-  }
-}
 function randomCordinate(max, min) {
   return Math.floor(Math.random() * (max - min) + min);
 }
@@ -80,5 +66,11 @@ export function generateComputerSetup(n) {
   if (n === 1) {
     placeShipFunctions.placeCruiser(randomCordinate(90, 94), false, computer);
   }
-  console.log(playerTwoComputer.pGameboard);
+}
+export function generateRandomBoard() {
+  let n = 5;
+  for (let i = 0; i <= 5; i++) {
+    generateComputerSetup(n);
+    n -= 1;
+  }
 }

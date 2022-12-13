@@ -2,10 +2,10 @@
 import { getPlayerShipPlacement } from './controller';
 import { playerOne, playerTwoComputer } from './index';
 import { boardController } from './controller';
+import { generateRandomBoard } from './players';
 
 export function generateInitialGameboard() {
   const gameboard = document.querySelector('.gameboard-left');
-  console.log(gameboard);
   for (let i = 0; i < 100; i++) {
     const boardpiece = document.createElement('div');
     boardpiece.classList.add('board-piece');
@@ -116,8 +116,8 @@ function determineOutOfBounds(div) {
 export const rotateButton = {
   rotateButtonStatus: false,
   getRotatebutton() {
-    const rotateButton = document.getElementById('rotate');
-    return rotateButton;
+    const rotateButtonA = document.getElementById('rotate');
+    return rotateButtonA;
   },
   eventListener() {
     const button = this.getRotatebutton();
@@ -253,13 +253,16 @@ function updateShipOptions(n) {
       break;
     case 1: text.innerText = 'Destroyer';
       break;
-    default: text.innerText = 'ok';
+    default: text.innerText = 'Carrier';
   }
   const finalDiv = divs[divs.length - 1];
   if (n === 2) {
     return;
   }
   finalDiv.remove();
+}
+function handleUserShipSelection(id, counter, horizontal) {
+  getPlayerShipPlacement(id, counter, horizontal);
 }
 export function addDivClickEventListener() {
   let counter = 5;
@@ -276,15 +279,6 @@ export function addDivClickEventListener() {
       updateShipOptions(counter);
     });
   });
-}
-
-function handleUserShipSelection(id, counter, horizontal) {
-  /* let horizontal = true;
-  const button = document.getElementById('rotate');
-  if (button.classList.contains('horizontal')) {
-    horizontal = false;
-  } */
-  getPlayerShipPlacement(id, counter, horizontal);
 }
 
 export function displayGameboard() {
@@ -350,7 +344,7 @@ export function updateEnemyboardDom({
     hitDiv.classList.add('enemy-hit-ship');
   } else {
     hitDiv.classList.add('enemy-hit');
-    console.log('you missed');
+    console.log('enemy missed');
   }
 }
 
@@ -366,9 +360,36 @@ export function removePlayerboardEventListeners() {
     }
   });
 }
-
+function reAddShipMiniDisplay() {
+  const container = document.querySelector('.ship-carrier');
+  for (let i = 0; i <= 3; i++) {
+    const div = document.createElement('div');
+    div.classList.add('ship-div');
+    container.appendChild(div);
+  }
+}
+function resetButton() {
+  document.getElementById('reset-button').addEventListener('click', () => {
+    reAddShipMiniDisplay();
+    const divs = document.querySelectorAll('.board-piece');
+    divs.forEach((div) => div.remove());
+    const enemyDivs = document.querySelectorAll('.board-piece-enemy');
+    enemyDivs.forEach((div) => div.remove());
+    playerOne.reset();
+    playerTwoComputer.reset();
+    generateInitialGameboard();
+    document.querySelector('.gameboard-options').style.display = 'flex';
+    document.querySelector('.ending').style.display = 'none';
+    getPlayerShipPlacement();
+    // generateComputerSetup();
+    generateRandomBoard();
+    rotateButton.eventListener();
+    handleOutOfBounds(5, rotateButton.getStatus());
+    addBoardHover('carrier');
+  });
+}
 export function generateEndingDOM(winner) {
-  const container = document.querySelector('.gameboards-container-right');
+  const container = document.querySelector('.gameboards-container-right-hidden');
   container.style.display = 'none';
   const endingContainer = document.querySelector('.ending');
   endingContainer.style.display = 'flex';
@@ -376,4 +397,6 @@ export function generateEndingDOM(winner) {
   if (winner === 'Computer') {
     winnerName.textContent = 'Computer won!';
   } else winnerName.textContent = 'You won!';
+
+  resetButton();
 }

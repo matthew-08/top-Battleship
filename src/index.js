@@ -28,6 +28,9 @@ export const ShipFactory = (shipName, length, direction) => ({
     return (this.size === 0);
   },
   direction,
+  instantSunk() {
+    this.size = 0;
+  },
 });
 
 function generateGameboard() {
@@ -38,6 +41,15 @@ function generateGameboard() {
     array.push(piece);
   }
   return array;
+}
+
+function checkMoveLegality(playerBoard, coordinates) {
+  const passedCoordinate = coordinates;
+  const initalCoordinate = playerBoard[passedCoordinate];
+  if (initalCoordinate.hasShip) {
+    return false;
+  }
+  return true;
 }
 
 export const gameboard = () => ({
@@ -81,7 +93,6 @@ export const gameboard = () => ({
     return boardSpace;
   },
   allSunk() {
-    console.log(this.allShips);
     const { allShips } = this;
     return allShips.every((ship) => ship.ship.isSunk());
   },
@@ -93,17 +104,13 @@ export const gameboard = () => ({
       } else array.push(0);
     }
   },
+  autoEnding() {
+    console.log(this.allShips);
+    this.allShips.forEach((ship) => ship.ship.instantSunk());
+  },
 
 });
 
-function checkMoveLegality(playerBoard, coordinates) {
-  const passedCoordinate = coordinates;
-  const initalCoordinate = playerBoard[passedCoordinate];
-  if (initalCoordinate.hasShip) {
-    return false;
-  }
-  return true;
-}
 export const playerOne = new Player('matthew');
 export const playerTwoComputer = new Player('Computer');
 getPlayerShipPlacement();

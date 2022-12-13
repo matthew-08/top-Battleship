@@ -48,9 +48,9 @@ export function getPlayerShipPlacement(id, n, horizontal) {
 }
 
 export const boardController = {
+  storedShipCoordinates: [],
   hitEnemyBoard(coordinate) {
     const blockHit = playerTwoComputer.pGameboard.gameboardHit(coordinate);
-    console.log(blockHit);
     updateEnemyboardDom(blockHit);
     this.enemyShoot();
     this.checkForAllSunk();
@@ -66,5 +66,20 @@ export const boardController = {
     }
     /* if (playerOne.pGameboard.allSunk()) {
     } */
+  },
+  enemyStoreShip(number, size) {
+    let a = number;
+    for (let i = 1; i <= size; i++) {
+      this.storedShipCoordinates.push(a += 1);
+    }
+    for (let i = 1; i <= size; i++) {
+      this.storedShipCoordinates.push(a -= 1);
+    }
+    for (let i = 1; i <= size; i++) {
+      this.storedShipCoordinates.push(a += 10);
+    }
+    for (let i = 1; i <= size; i++) {
+      this.storedShipCoordinates.push(a -= 10);
+    }
   },
 };
