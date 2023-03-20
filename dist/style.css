@@ -258,3 +258,7 @@ main {
     border: none;
     background-color: rgb(226, 224, 220);
 }
+
+#rotate {
+    font-size: 3rem;
+}
